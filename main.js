@@ -36,8 +36,8 @@ function draw() {
    song_status_p = paint_my_love.isPlaying();
    song_status_n = nothings.isPlaying();
 
-   fill();
-   stroke();
+   fill(255 , 0 , 0);
+   stroke(255 , 0 , 0);
 
    if(scoreLW > 0.2) {
      circle(leftWristX  ,  leftWristY  ,  20);
