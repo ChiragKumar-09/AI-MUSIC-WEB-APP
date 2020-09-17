@@ -10,6 +10,12 @@ leftElbowX = 0;
 leftElbowY = 0;
 rightElbowX = 0;
 rightElbowY = 0;
+scoreLW = 0;
+scoreRW = 0;
+song_status_n = "";
+song_status_p = "";
+song_status_r = "";
+song_status_b = "";
 
 function setup() {
     canvas = createCanvas(450 , 370);
@@ -24,6 +30,37 @@ function setup() {
 function draw() {
    image(img , 0 , 0, 450 , 400);
    image(video , 25 , 15, 400 , 320);  
+   
+   song_status_b = baby.isPlaying();
+   song_status_r = right_here.isPlaying();
+   song_status_p = paint_my_love.isPlaying();
+   song_status_n = nothings.isPlaying();
+
+   fill();
+   stroke();
+
+   if(scoreLW > 0.2) {
+     circle(leftWristX  ,  leftWristY  ,  20);
+     nothings.stop();
+     baby.stop();
+     right_here.stop();
+      
+    if(song_status_p == "false") {
+      paint_my_love.play();
+      document.getElementById("song_name").innerHTML =  "Song Name is PAINT MY LOVE";
+    }
+   }
+   if(scoreRW > 0.2) {
+    circle(rightWristX  ,  rightWristY  ,  20);
+    paint_my_love.stop();
+    baby.stop();
+    right_here.stop();
+
+    if(song_status_n == "false") {
+        nothings.play();
+        document.getElementById("song_name").innerHTML =  "Song Name is NOTHINGS GONNA CHANGE MY LOVE FOR YOU";
+    }
+   }
 }
 function preload() {
    nothings = loadSound("Justin Bieber.mp3") ;
@@ -48,10 +85,13 @@ function gotPoses(results) {
             leftElbowY = results[0].pose.leftElbow.y;
             rightElbowX = results[0].pose.rightElbow.x;
             rightElbowY = results[0].pose.rightElbow.y;
+            scoreLW = results[0].pose.keypoints[9].score;
+            scoreRW = results[0].pose.keypoints[10].score;
 
             console.log("leftWristX = "+leftWristX+"leftWristY = "+leftWristY);
             console.log("rightWristX = "+rightWristX+"rightWristY = "+rightWristY);
             console.log("leftElbowX = "+leftElbowX+"leftElbowY = "+leftElbowY);
             console.log("rightElbowX = "+rightElbowX+"rightElbowY = "+rightElbowY);
+            console.log("Score of leftWrist = "+scoreLW+" Score of rightWrist = "+scoreRW);
         }
 }
