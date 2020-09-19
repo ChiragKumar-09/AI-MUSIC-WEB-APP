@@ -12,6 +12,8 @@ rightElbowX = 0;
 rightElbowY = 0;
 scoreLW = 0;
 scoreRW = 0;
+scoreLE = 0;
+scoreRE = 0;
 song_status_n = "";
 song_status_p = "";
 song_status_r = "";
@@ -61,6 +63,28 @@ function draw() {
         document.getElementById("song_name").innerHTML =  "Song Name is NOTHINGS GONNA CHANGE MY LOVE FOR YOU";
     }
    }
+   if(scoreLE > 0.2) {
+    circle(leftElbowX  ,  leftElbowY  ,  20);
+    nothings.stop();
+    baby.stop();
+    paint_my_love.stop();
+     
+   if(song_status_r == "false") {
+     right_here.play();
+     document.getElementById("song_name").innerHTML =  "Song Name is RIGHT HERE WAITING FOR YOU";
+   }
+  }
+  if(scoreRE > 0.2) {
+   circle(rightElbowX  ,  rightElbowY  ,  20);
+   paint_my_love.stop();
+   nothings.stop();
+   right_here.stop();
+
+   if(song_status_b == "false") {
+       baby.play();
+       document.getElementById("song_name").innerHTML =  "Song Name is BABY";
+   }
+  }
 }
 function preload() {
    nothings = loadSound("Justin Bieber.mp3") ;
@@ -87,11 +111,14 @@ function gotPoses(results) {
             rightElbowY = results[0].pose.rightElbow.y;
             scoreLW = results[0].pose.keypoints[9].score;
             scoreRW = results[0].pose.keypoints[10].score;
+            scoreLE = results[0].pose.keypoints[7].score;
+            scoreRE = results[0].pose.keypoints[8].score;
 
             console.log("leftWristX = "+leftWristX+"leftWristY = "+leftWristY);
             console.log("rightWristX = "+rightWristX+"rightWristY = "+rightWristY);
             console.log("leftElbowX = "+leftElbowX+"leftElbowY = "+leftElbowY);
             console.log("rightElbowX = "+rightElbowX+"rightElbowY = "+rightElbowY);
             console.log("Score of leftWrist = "+scoreLW+" Score of rightWrist = "+scoreRW);
+            console.log("Score of leftElbow = "+scoreLE+" Score of rightElbow = "+scoreRE);
         }
 }
